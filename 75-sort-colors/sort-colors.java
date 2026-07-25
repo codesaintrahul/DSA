@@ -1,29 +1,30 @@
 class Solution {
+    // Function to sort array containing 0s, 1s, and 2s using Dutch National Flag Algorithm
     public void sortColors(int[] nums) {
-        int cnt0=0;
-        int cnt1=0;
-        int cnt2=0;
-        for(int i=0;i<nums.length;i++){
-            if(nums[i]==0){
-                cnt0++;
-            }
-            else if(nums[i]==1){
-                cnt1++;
-            }
-            else{
-                cnt2++;
-            }
-        }
+        // Initialize three pointers: low and mid at 0, high at the end
+        int low = 0, mid = 0, high = nums.length - 1;
 
-        for(int j=0;j<cnt0;j++){
-            nums[j]=0;
+        // Continue processing until mid crosses high
+        while (mid <= high) {
+            // If current element is 0, swap with low and move both low and mid forward
+            if (nums[mid] == 0) {
+                int temp = nums[low];
+                nums[low] = nums[mid];
+                nums[mid] = temp;
+                low++;
+                mid++;
+            }
+            // If current element is 1, just move mid forward
+            else if (nums[mid] == 1) {
+                mid++;
+            }
+            // If current element is 2, swap with high and move only high backward
+            else {
+                int temp = nums[mid];
+                nums[mid] = nums[high];
+                nums[high] = temp;
+                high--;
+            }
         }
-        for(int k=cnt0;k<(cnt1+cnt0);k++){
-            nums[k]=1;
-        }
-        for(int l=(cnt1+cnt0);l<nums.length;l++){
-            nums[l]=2;
-        }
-        
     }
 }
